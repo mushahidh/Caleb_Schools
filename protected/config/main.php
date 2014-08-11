@@ -6,17 +6,17 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'My Web Application',
+    'name' => 'Caleb Schools',
     //'theme'=>'bootstrap2',
     //Available layouts for Bootstrap v2.3.2 :starter,hero,fluid,carousel,justified-nav,marketing-narrow. (uncomment 'theme'=>'bootstrap2' to use these).
     // Available layouts for Bootstrap v3.0.0 :starter-template,offcanvas,carousel,justified-nav,jumbotron,jumbotron-narrow.
-    'layout' => 'jumbotron',
+    'layout' => 'carousel',
 
     // preloading 'log' component
     'preload' => array(
         'log',
         'input', //Filter
-        'bootstrap', // preload the bootstrap component,comment this out if you don't use bootstrap2 theme.
+        //'bootstrap', // preload the bootstrap component,comment this out if you don't use bootstrap2 theme.
         //(Yiistrap and YiiWheels work with bootstrap 2).
     ),
 
@@ -26,6 +26,8 @@ return array(
         'application.components.*',
         'application.extensions.bootstrap.components.*',
         'application.extensions.bootstrap.helpers.TbHtml',
+         'application.modules.rights.*',
+         'application.modules.rights.components.*',
         //DEBUGGING STUFF
         'application.vendors.FirePHPCore.FirePHP',
         'application.vendors.FirePHPCore.FB',
@@ -41,12 +43,23 @@ return array(
 
         'gii' => array(
             'class' => 'system.gii.GiiModule',
-            'password' => '1',
+            'password' => 'centangle',
             'generatorPaths' => array(
                 'bootstrap.gii'
             ),
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '::1'),
+        ),
+           'message' => array(
+            'userModel' => 'User',
+            'getNameMethod' => 'getFullName',
+            'getSuggestMethod' => 'getSuggest',
+             'viewPath' => '//messagesModuleCustom',
+        ),
+              'rights'=>array(
+                'install'=>false,
+                 
+               
         ),
 
     ),
@@ -54,8 +67,10 @@ return array(
     // application components
     'components' => array(
         'user' => array(
+              
             // enable cookie-based authentication
             'allowAutoLogin' => true,
+            'class'=>'RWebUser',
         ),
         //email
         'mailer' => array(
@@ -77,6 +92,11 @@ return array(
         'yiiwheels' => array(
             'class' => 'yiiwheels.YiiWheels',
         ),
+                'authManager'=>array(
+                'class'=>'RDbAuthManager',
+                'connectionID'=>'db',
+               
+        ),
         // uncomment the following to enable URLs in path-format
 
         'urlManager' => array(
@@ -97,26 +117,28 @@ return array(
         'db' => (!APP_DEPLOYED) ?
             array( //LOCALHOST
                 'class' => 'CDbConnection',
-                'connectionString' => 'mysql:host=localhost;dbname=yiiapp',
+                'connectionString' => 'mysql:host=localhost;dbname=school',
                 'username' => 'root',
-                'password' => '1',
+                'password' => '',
                 'charset' => 'UTF8',
                 'tablePrefix' => '', // even empty table prefix required!!!
                 'emulatePrepare' => true,
                 'enableProfiling' => true,
+                'enableParamLogging'=>true,
                 'schemaCacheID' => 'cache',
                 'queryCacheID' => 'cache',
                 'schemaCachingDuration' => 120
             ):
         array(       //SERVER
             'class' => 'CDbConnection',
-                              'connectionString' => 'mysql:host=[MYSQL HOST];dbname=[DBNAME]',
-                               'username' => '[USERNAME]',
-                               'password' => '[PASSWORD]',
+                              'connectionString' => 'mysql:host=localhost;dbname=school',
+                               'username' => 'root',
+                               'password' => '',
                                'charset' => 'UTF8',
                                'tablePrefix' => '',
                                'emulatePrepare' => true,
-                               //   'enableProfiling' => true,
+                                'enableParamLogging'=>true,
+                                'enableProfiling' => true,
                               'schemaCacheID' => 'cache',
                              'schemaCachingDuration' => 3600
                                               ),
@@ -130,49 +152,49 @@ return array(
     'class' => 'CLogRouter',
     'routes' => array(
         array(
-            'class' => 'CFileLogRoute',
-            'levels' => 'error, warning',
+            'class'=>'ext.yii-debug-toolbar.YiiDebugToolbarRoute',
+        
         ),
         // uncomment the following to show log messages on web pages
-        /*
-        array(
+        
+      /*  array(
             'class'=>'CWebLogRoute',
-        ),
-        */
+        ),*/
+        
     ),
 ),
         'clientScript' => array(
     'class' => 'CClientScript',
     'scriptMap' => array(
         //don't allow the framework to load jQuery,we load it manually,(see components/Controller.php).
-        'jquery.js' => false,
-        //'jquery.min.js' => false
+        //'jquery.js' => false,
+        'jquery.min.js' => false
     ),
-    'coreScriptPosition' => CClientScript::POS_END,
+    //'coreScriptPosition' => CClientScript::POS_END,
 ),
     ),
 
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params' => array(
-    'fromEmail' => 'admin@gmail.com',
-    'replyEmail' => 'reply-to@gmail.com',
-    'myEmail' => '[MY  EMAIL]',
-    'gmail_password' => 'MY  GMAIL PASSWORD',
-    'recaptcha_private_key' => '', // captcha will not work without these keys!
-    'recaptcha_public_key' => '', //http://www.google.com/recaptcha
+    'fromEmail' => 'mushahidh224@gmail.com',
+    'replyEmail' => 'mushahidh224@gmail.com',
+    'myEmail' => 'mushahidh224@gmail.com',
+    'gmail_password' => 'mianwali',
+    'recaptcha_private_key' => '6LdkM_cSAAAAAH3GQvkJ9y8Wb1CQ2QSPfiLTJVCa', // captcha will not work without these keys!
+    'recaptcha_public_key' => '6LdkM_cSAAAAAFHMTpOdXZ-ADvPirOyVQ0jf1bGw', //http://www.google.com/recaptcha
     'contactRequireCaptcha' => true,
 
     //Choose Bootswatch skin.'none' means default bootstrap theme.See http://bootswatch.com/
     //Options for Bootstrap2:(make sure you have 'theme'=>'bootstrap2' in this file.)
     //none,amelia,cerulean,cosmo,cyborg,flatly,journal,readable,simplex,slate,spacelab,spruce,superhero,united
-    'bootswatch2_skin' => 'none',
+    'bootswatch2_skin' => 'united',
 
     //Options for Bootstrap3:(no theme specified,default view files from protected/views are used)
     //none,amelia,cerulean,cosmo,cyborg,flatly,journal,readable,simplex,slate,spacelab,united
-    'bootswatch3_skin' => 'cyborg',
+  'bootswatch3_skin' => 'cyborg',
 
     //render a form to try out layouts and skins.
-    'render_switch_form' => true
+    'render_switch_form' => false,
 ),
 );

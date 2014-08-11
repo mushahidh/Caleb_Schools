@@ -205,6 +205,14 @@ class User extends CActiveRecord
     }
 
 
+public function getSuggest($q) {
+    $c = new CDbCriteria();
+    $c->addSearchCondition('username', $q, true, 'OR');
+    $c->addSearchCondition('email', $q, true, 'OR');
+    return $this->findAll($c);
+}
+
+
     /**
      * Generates a new validation key (additional security for cookie)
      */

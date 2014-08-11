@@ -19,7 +19,7 @@ defined('DS') or define('DS',DIRECTORY_SEPARATOR);
 
 
 //Local Framework Path
-$yii=(!APP_DEPLOYED)?dirname(__FILE__).DS.'..'.DS.'frameworks'.DS .'yii_1.1.14'.DS .'framework'.DS .'yii.php':
+$yii='C:\wamp\apps\yii\yii.php';
 //Server framework Path
 dirname(__FILE__).DS.'..'.DS.'frameworks'.DS .'yii_1.1.14'.DS .'framework'.DS .'yii.php';
 

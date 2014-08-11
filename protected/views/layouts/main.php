@@ -15,11 +15,8 @@
     <![endif]-->
 </head>
 <body>
-<?php  if (app()->params->render_switch_form): ?>
-    <div id="switchform-container">
-        <?php $this->renderPartial('/layouts/_switch');?>
-    </div>
-<?php endif;?>
+
+ 
 
 <?php  echo $content; ?>
 
